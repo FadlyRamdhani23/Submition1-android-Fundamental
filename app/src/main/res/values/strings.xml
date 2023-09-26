@@ -82,4 +82,14 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="searchbar_hint">Masukkan kata</string>
+    <string name="tab_text_1">Followers</string>
+    <string name="tab_text_2">Following</string>
+    <string name="tab_text_3">Setting</string>
+    <string name="content_tab_home">Welcome Home</string>
+    <string name="content_tab_profile">Change your Profile here</string>
+    <string name="content_tab_text">This is Tab %1$d</string>
+    <string name="username">username</string>
+    <string name="akun">akun</string>
+    <string name="following">Following</string>
+    <string name="followers">Followers</string>
 </resources>

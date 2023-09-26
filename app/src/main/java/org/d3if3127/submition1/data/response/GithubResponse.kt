@@ -1,7 +1,10 @@
 package org.d3if3127.submition1.data.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class GithubResponse(
 
 	@field:SerializedName("total_count")
@@ -12,8 +15,9 @@ data class GithubResponse(
 
 	@field:SerializedName("items")
 	val items: List<ItemsItem>
-)
+): Parcelable
 
+@Parcelize
 data class ItemsItem(
 
 	@field:SerializedName("gists_url")
@@ -43,9 +47,6 @@ data class ItemsItem(
 	@field:SerializedName("subscriptions_url")
 	val subscriptionsUrl: String,
 
-	@field:SerializedName("score")
-	val score: Any,
-
 	@field:SerializedName("received_events_url")
 	val receivedEventsUrl: String,
 
@@ -72,4 +73,4 @@ data class ItemsItem(
 
 	@field:SerializedName("organizations_url")
 	val organizationsUrl: String
-)
+): Parcelable

@@ -1,5 +1,6 @@
 package org.d3if3127.submition1.ui
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,6 +11,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import org.d3if3127.submition1.data.response.ItemsItem
 import org.d3if3127.submition1.databinding.ItemUserBinding
 
+
 class GithubAdapter : ListAdapter<ItemsItem, GithubAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -17,8 +19,14 @@ class GithubAdapter : ListAdapter<ItemsItem, GithubAdapter.MyViewHolder>(DIFF_CA
         return MyViewHolder(binding)
     }
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val review = getItem(position)
-        holder.bind(review)
+        val user = getItem(position)
+        holder.bind(user)
+        holder.itemView.setOnClickListener {
+            val context = holder.itemView.context
+            val moveWithObjectIntent = Intent(context, DetailUserActivity::class.java)
+            moveWithObjectIntent.putExtra(DetailUserActivity.GITHUB_USERNAME, user.login)
+            context.startActivity(moveWithObjectIntent)
+        }
     }
     class MyViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: ItemsItem) {
@@ -28,6 +36,7 @@ class GithubAdapter : ListAdapter<ItemsItem, GithubAdapter.MyViewHolder>(DIFF_CA
                 .transform(CircleCrop())
                 .into(binding.avatar)
         }
+
     }
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemsItem>() {
