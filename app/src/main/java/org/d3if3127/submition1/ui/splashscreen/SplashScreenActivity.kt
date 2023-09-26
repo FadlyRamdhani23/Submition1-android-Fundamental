@@ -1,10 +1,11 @@
-package org.d3if3127.submition1.ui
+package org.d3if3127.submition1.ui.splashscreen
 
     import android.content.Intent
     import android.os.Bundle
     import android.os.Handler
     import androidx.appcompat.app.AppCompatActivity
     import org.d3if3127.submition1.R
+    import org.d3if3127.submition1.ui.MainActivity
 
 class SplashScreenActivity : AppCompatActivity() {
 

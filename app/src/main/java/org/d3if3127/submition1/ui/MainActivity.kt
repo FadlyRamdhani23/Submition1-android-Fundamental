@@ -3,13 +3,12 @@ package org.d3if3127.submition1.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.d3if3127.submition1.data.response.ItemsItem
+import org.d3if3127.submition1.viewmodel.MainViewModel
 import org.d3if3127.submition1.databinding.ActivityMainBinding
-import org.d3if3127.submition1.ui.MainViewModel.Companion.GITHUB_Query
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +22,8 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
+        val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
+            MainViewModel::class.java)
         mainViewModel.githubQuery.observe(this) { githubQuery ->
             setGithubData(githubQuery)
         }

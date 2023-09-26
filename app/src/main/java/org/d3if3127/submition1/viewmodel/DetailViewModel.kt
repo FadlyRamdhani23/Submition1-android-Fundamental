@@ -1,12 +1,12 @@
-package org.d3if3127.submition1.ui
+package org.d3if3127.submition1.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.d3if3127.submition1.data.response.DetailUserResponse
-import org.d3if3127.submition1.data.response.GithubResponse
 import org.d3if3127.submition1.data.retrofit.ApiConfig
+import org.d3if3127.submition1.ui.detail.DetailUserActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,12 +38,12 @@ class DetailViewModel : ViewModel() {
                 if (response.isSuccessful){
                     _detailUser.value = response.body()
                 }else{
-                    Log.e(DetailViewModel.TAG, "onFailure: ${response.message()}")
+                    Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
             override fun onFailure(call: Call<DetailUserResponse>, t: Throwable) {
                 _isLoading.value = false
-                Log.e(DetailViewModel.TAG, "onFailure: ${t.message}")
+                Log.e(TAG, "onFailure: ${t.message}")
             }
         })
     }

@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import org.d3if3127.submition1.data.response.ItemsItem
 import org.d3if3127.submition1.databinding.ItemUserBinding
+import org.d3if3127.submition1.ui.detail.DetailUserActivity
 
 
 class GithubAdapter : ListAdapter<ItemsItem, GithubAdapter.MyViewHolder>(DIFF_CALLBACK) {
@@ -25,6 +26,7 @@ class GithubAdapter : ListAdapter<ItemsItem, GithubAdapter.MyViewHolder>(DIFF_CA
             val context = holder.itemView.context
             val moveWithObjectIntent = Intent(context, DetailUserActivity::class.java)
             moveWithObjectIntent.putExtra(DetailUserActivity.GITHUB_USERNAME, user.login)
+            moveWithObjectIntent.putExtra(FollowFragment.ARG_USERNAME, user.login)
             context.startActivity(moveWithObjectIntent)
         }
     }
