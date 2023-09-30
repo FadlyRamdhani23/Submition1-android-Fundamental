@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.rvGithub.addItemDecoration(itemDecoration)
 
-
         binding.searchView.setupWithSearchBar(binding.searchBar)
         binding.searchView.editText.setOnEditorActionListener { textView, actionId, event ->
             val searchText = binding.searchView.text.toString().trim()

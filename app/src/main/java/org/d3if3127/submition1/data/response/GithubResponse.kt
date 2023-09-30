@@ -4,7 +4,7 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
-@Parcelize
+
 data class GithubResponse(
 
 	@field:SerializedName("total_count")
@@ -15,7 +15,7 @@ data class GithubResponse(
 
 	@field:SerializedName("items")
 	val items: List<ItemsItem>
-): Parcelable
+)
 
 @Parcelize
 data class ItemsItem(

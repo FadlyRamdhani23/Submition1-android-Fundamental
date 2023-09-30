@@ -28,7 +28,7 @@ class MainViewModel : ViewModel(){
 
     companion object{
         private const val TAG = "MainViewModel"
-        public var GITHUB_Query = "fadly"
+        var GITHUB_Query = "fadly"
     }
 
     init {

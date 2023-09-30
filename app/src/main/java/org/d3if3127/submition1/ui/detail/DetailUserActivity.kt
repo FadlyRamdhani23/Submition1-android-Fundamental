@@ -1,15 +1,15 @@
 package org.d3if3127.submition1.ui.detail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.d3if3127.submition1.R
 import org.d3if3127.submition1.data.response.DetailUserResponse
@@ -20,14 +20,7 @@ import org.d3if3127.submition1.ui.SectionsPagerAdapter
 class DetailUserActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailUserBinding
-    companion object {
-        @StringRes
-        private val TAB_TITLES = intArrayOf(
-            R.string.tab_text_1,
-            R.string.tab_text_2
-        )
-        var GITHUB_USERNAME = " "
-    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailUserBinding.inflate(layoutInflater)
@@ -37,53 +30,61 @@ class DetailUserActivity : AppCompatActivity() {
         if (user != null) {
             GITHUB_USERNAME = user
         }
-        val sectionsPagerAdapter = SectionsPagerAdapter(this)
-        val viewPager: ViewPager2 = findViewById(R.id.view_pager)
-        viewPager.adapter = sectionsPagerAdapter
 
-        val tabs: TabLayout = findViewById(R.id.tabs)
-        val tabLayoutMediator = TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
-            tab.text = resources.getString(TAB_TITLES[position])
-            when (position) {
-                0 -> {
-                    tab.text = getString(R.string.tab_text_1)
-                }
-                1 -> {
-                    tab.text = getString(R.string.tab_text_2)
+
+        val detailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
+            DetailViewModel::class.java)
+        detailViewModel.isLoading.observe(this) {
+            showLoading(it)
+
+        }
+        detailViewModel.detailUser.observe(this) { DetailUser ->
+                setUserData(DetailUser)
+            val sectionsPagerAdapter = SectionsPagerAdapter(this)
+            val viewPager: ViewPager2 = findViewById(R.id.view_pager)
+            viewPager.adapter = sectionsPagerAdapter
+
+            val tabLayoutMediator = TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
+                tab.text = resources.getString(TAB_TITLES[position])
+                when (position) {
+                    0 -> {
+                        tab.text = getString(R.string.tab_text_1)
+                    }
+                    1 -> {
+                        tab.text = getString(R.string.tab_text_2)
+                    }
                 }
             }
-        }
-        tabLayoutMediator.attach()
-
-        val DetailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
-            DetailViewModel::class.java)
-        DetailViewModel.isLoading.observe(this) {
-            showLoading(it)
-        }
-        DetailViewModel.detailUser.observe(this) { DetailUser ->
-                setUserData(DetailUser)
+            tabLayoutMediator.attach()
         }
 
     }
-    private fun setUserData(DetailUser: DetailUserResponse) {
 
-        binding.akun.text = DetailUser.login
-        binding.username.text = DetailUser.name as CharSequence?
-        binding.followers.text = "${DetailUser.followers} Followers"
-        binding.following.text = "${DetailUser.following} Following"
-        Glide.with(this)
-            .load("${DetailUser.avatarUrl}")
-            .transform(CircleCrop())
-            .into(binding.imageView2)
+    private fun setUserData(DetailUser: DetailUserResponse) {
+        binding?.apply {
+            akun.text = DetailUser.login
+            username.text = DetailUser.name as CharSequence?
+            followers.text = "${DetailUser.followers}"
+            following.text = "${DetailUser.following}"
+            Glide.with(this@DetailUserActivity)
+                .load("${DetailUser.avatarUrl}")
+                .transform(CircleCrop())
+                .into(imageView2)
+        }
+        binding.followers.text = StringBuilder().append(DetailUser.followers).append(" Followers")
+        binding.following.text = StringBuilder().append(DetailUser.following).append(" Following")
     }
 
     private fun showLoading(isLoading: Boolean){
-        if (isLoading){
-            binding.progressBarr.visibility = View.VISIBLE
-        } else {
-            binding.progressBarr.visibility = View.GONE
-        }
+        binding.progressBarr.isVisible = isLoading
     }
-
+    companion object {
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.tab_text_1,
+            R.string.tab_text_2
+        )
+        var GITHUB_USERNAME = " "
+    }
 
 }

@@ -92,4 +92,5 @@
     <string name="akun">akun</string>
     <string name="following">Following</string>
     <string name="followers">Followers</string>
+    <string name="avatar">avatar</string>
 </resources>
