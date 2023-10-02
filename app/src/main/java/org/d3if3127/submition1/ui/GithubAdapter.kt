@@ -26,7 +26,9 @@ class GithubAdapter : ListAdapter<ItemsItem, GithubAdapter.MyViewHolder>(DIFF_CA
             val context = holder.itemView.context
             val moveWithObjectIntent = Intent(context, DetailUserActivity::class.java)
             moveWithObjectIntent.putExtra(DetailUserActivity.GITHUB_USERNAME, user.login)
+            moveWithObjectIntent.putExtra(DetailUserActivity.GITHUB_ID, user.id)
             moveWithObjectIntent.putExtra(FollowFragment.ARG_USERNAME, user.login)
+
             context.startActivity(moveWithObjectIntent)
         }
     }

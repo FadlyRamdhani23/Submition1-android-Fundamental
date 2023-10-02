@@ -27,12 +27,16 @@ class DetailUserActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
         val user = intent.getStringExtra(GITHUB_USERNAME)
+        val id = intent.getIntExtra(GITHUB_ID, 0)
         if (user != null) {
             GITHUB_USERNAME = user
         }
+        if (id != 0) {
+            GITHUB_ID = id.toString()
+        }
 
 
-        val detailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
+        val detailViewModel = ViewModelProvider(this).get(
             DetailViewModel::class.java)
         detailViewModel.isLoading.observe(this) {
             showLoading(it)
@@ -56,6 +60,9 @@ class DetailUserActivity : AppCompatActivity() {
                 }
             }
             tabLayoutMediator.attach()
+        }
+        binding.toggleButtonFav.setOnClickListener {
+
         }
 
     }
@@ -85,6 +92,7 @@ class DetailUserActivity : AppCompatActivity() {
             R.string.tab_text_2
         )
         var GITHUB_USERNAME = " "
+        var GITHUB_ID = " "
     }
 
 }
