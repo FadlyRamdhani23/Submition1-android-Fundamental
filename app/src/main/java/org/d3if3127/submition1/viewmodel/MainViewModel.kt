@@ -30,7 +30,7 @@ class MainViewModel (private val githubRepository: GithubRepository): ViewModel(
         githubRepository.setBookmarkedGithub(github, true)
     }
     fun deleteNews(github : GithubEntity) {
-        githubRepository.setBookmarkedGithub(github, true)
+        githubRepository.setBookmarkedGithub(github, false)
     }
     fun setSearchQuery(query: String) {
         _searchQuery.value = query
