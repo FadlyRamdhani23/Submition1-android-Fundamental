@@ -56,7 +56,7 @@ class FollowFragment : Fragment() {
 
         if (position == 1) {
             followersViewModel.followers.observe(viewLifecycleOwner) { followers ->
-                setUserData(followers)
+//                setUserData(followers)
             }
         }else{
             val followingViewModel =
@@ -65,16 +65,16 @@ class FollowFragment : Fragment() {
                     ViewModelProvider.NewInstanceFactory()
                 )[FollowingViewModel::class.java]
             followingViewModel.following.observe(viewLifecycleOwner) { following ->
-                setUserData(following)
+//                setUserData(following)
             }
         }
     }
-    private fun setUserData(itemsItem :List<ItemsItem>) {
-        val adapter = GithubAdapter()
-        adapter.submitList(itemsItem)
-        binding.rvFollow.adapter = adapter
-
-    }
+//    private fun setUserData(itemsItem :List<ItemsItem>) {
+//        val adapter = GithubAdapter()
+//        adapter.submitList(itemsItem)
+//        binding.rvFollow.adapter = adapter
+//
+//    }
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
