@@ -23,7 +23,19 @@ class GithubAdapter (private val onBookmarkClick: (GithubEntity) -> Unit) : List
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val user = getItem(position)
         holder.bind(user)
+        val ivBookmark = holder.binding.ivBookmark
+        if (user.isBookmarked) {
+            ivBookmark.setImageResource(android.R.drawable.btn_star_big_on)
+        } else {
+            ivBookmark.setImageResource(android.R.drawable.btn_star_big_off)
+        }
+        // Panggil aksi yang sesuai (misalnya, simpan atau hapus bookmark)
+
+        ivBookmark.setOnClickListener {
+            onBookmarkClick(user)
+        }
     }
+
     class MyViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: GithubEntity) {
             binding.name.text = user.username

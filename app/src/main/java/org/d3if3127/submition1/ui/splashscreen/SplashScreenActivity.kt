@@ -6,6 +6,7 @@ package org.d3if3127.submition1.ui.splashscreen
     import android.os.Looper
     import androidx.appcompat.app.AppCompatActivity
     import org.d3if3127.submition1.R
+    import org.d3if3127.submition1.ui.favorite
     import org.d3if3127.submition1.ui.main.MainActivity
 
 class SplashScreenActivity : AppCompatActivity() {

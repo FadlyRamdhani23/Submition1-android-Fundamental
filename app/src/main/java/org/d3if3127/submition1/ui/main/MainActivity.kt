@@ -1,5 +1,6 @@
 package org.d3if3127.submition1.ui.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -7,11 +8,14 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.d3if3127.submition1.R
 
 import org.d3if3127.submition1.repository.Result
 import org.d3if3127.submition1.viewmodel.MainViewModel
 import org.d3if3127.submition1.databinding.ActivityMainBinding
 import org.d3if3127.submition1.ui.GithubAdapter
+import org.d3if3127.submition1.ui.detail.DetailUserActivity
+import org.d3if3127.submition1.ui.favorite
 import org.d3if3127.submition1.viewmodel.ViewModelFactory
 
 
@@ -70,7 +74,10 @@ class MainActivity : AppCompatActivity() {
         binding?.rvGithub?.apply {
             adapter = githubAdapter
         }
-
+        binding.imageView2.setOnClickListener{
+            val intent = Intent(this, favorite::class.java)
+            startActivity(intent)
+        }
 
         binding.searchView.setupWithSearchBar(binding.searchBar)
         binding.searchView.editText.setOnEditorActionListener { textView, actionId, event ->

@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
+
+
     <com.google.android.material.search.SearchBar
         android:id="@+id/searchBar"
         android:layout_width="0dp"
@@ -38,11 +40,20 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="103dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/star"
+        app:layout_constraintEnd_toEndOf="@+id/searchBar"
+        app:layout_constraintStart_toStartOf="@+id/searchBar"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvGithub"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:overScrollMode="never"
@@ -50,5 +61,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchBar" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
