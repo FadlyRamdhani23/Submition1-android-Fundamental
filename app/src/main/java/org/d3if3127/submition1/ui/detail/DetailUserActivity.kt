@@ -1,8 +1,6 @@
 package org.d3if3127.submition1.ui.detail
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -11,6 +9,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.d3if3127.submition1.R
 import org.d3if3127.submition1.data.response.DetailUserResponse
 import org.d3if3127.submition1.viewmodel.DetailViewModel
@@ -26,29 +28,31 @@ class DetailUserActivity : AppCompatActivity() {
         binding = ActivityDetailUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+
         val user = intent.getStringExtra(GITHUB_USERNAME)
         val id = intent.getIntExtra(GITHUB_ID, 0)
+        val avatar = intent.getStringExtra(GITHUB_AVATAR)
+
+
         if (user != null) {
             GITHUB_USERNAME = user
         }
-        if (id != 0) {
-            GITHUB_ID = id.toString()
-        }
 
+        val detailViewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
 
-        val detailViewModel = ViewModelProvider(this).get(
-            DetailViewModel::class.java)
-        detailViewModel.isLoading.observe(this) {
-            showLoading(it)
+        detailViewModel.isLoading.observe(this) { isLoading ->
+            showLoading(isLoading)
 
         }
-        detailViewModel.detailUser.observe(this) { DetailUser ->
-                setUserData(DetailUser)
+
+        detailViewModel.detailUser.observe(this) { detailUser ->
+            setUserData(detailUser)
+
             val sectionsPagerAdapter = SectionsPagerAdapter(this)
             val viewPager: ViewPager2 = findViewById(R.id.view_pager)
             viewPager.adapter = sectionsPagerAdapter
 
-            val tabLayoutMediator = TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
+            val tabLayoutMediator = TabLayoutMediator(binding.tabs, viewPager) { tab, position ->
                 tab.text = resources.getString(TAB_TITLES[position])
                 when (position) {
                     0 -> {
@@ -61,8 +65,31 @@ class DetailUserActivity : AppCompatActivity() {
             }
             tabLayoutMediator.attach()
         }
-        binding.toggleButtonFav.setOnClickListener {
 
+        var ceked = false
+        CoroutineScope(Dispatchers.IO).launch {
+            val count = detailViewModel.cekFav(id)
+            withContext(Dispatchers.Main) {
+                if (count != null){
+                    if (count > 0){
+                        binding.toggleButtonFav.isChecked = true
+                        ceked = true
+                    } else {
+                        binding.toggleButtonFav.isChecked = false
+                        ceked = false
+                    }
+                }
+            }
+        }
+        binding.toggleButtonFav.setOnClickListener {
+            ceked = !ceked
+            binding.toggleButtonFav.isChecked = ceked
+
+            if (ceked) {
+                detailViewModel.addFav(user.toString(), id,avatar.toString())
+            } else {
+                detailViewModel.removeFav(id)
+            }
         }
 
     }
@@ -91,8 +118,9 @@ class DetailUserActivity : AppCompatActivity() {
             R.string.tab_text_1,
             R.string.tab_text_2
         )
-        var GITHUB_USERNAME = " "
-        var GITHUB_ID = " "
+        var GITHUB_USERNAME = "username"
+        var GITHUB_ID = "id"
+        var GITHUB_AVATAR = "avatar"
     }
 
 }

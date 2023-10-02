@@ -3,6 +3,7 @@ package org.d3if3127.submition1.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import org.d3if3127.submition1.R
 import org.d3if3127.submition1.databinding.ActivityMenuBinding
 
 class MenuActivity : AppCompatActivity() {
@@ -24,6 +25,7 @@ class MenuActivity : AppCompatActivity() {
                     Toast.makeText(this@MenuActivity, searchView.text, Toast.LENGTH_SHORT).show()
                     false
                 }
+
         }
     }
 }

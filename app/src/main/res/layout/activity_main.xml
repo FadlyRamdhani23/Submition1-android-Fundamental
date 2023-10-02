@@ -5,16 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:title="My App"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.search.SearchBar
         android:id="@+id/searchBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
         android:hint="@string/searchbar_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/searchView">
-    </com.google.android.material.search.SearchBar>
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"></com.google.android.material.search.SearchBar>
     <com.google.android.material.search.SearchView
         android:id="@+id/searchView"
         android:layout_width="0dp"

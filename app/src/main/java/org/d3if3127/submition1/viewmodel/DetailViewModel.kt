@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -63,17 +62,18 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
         })
     }
 
-    fun addFav(username: String, id:Int){
+    fun addFav(username: String, id:Int, avatar:String){
         CoroutineScope(Dispatchers.IO).launch {
             var github = GithubEntity(
                 username,
-                id
+                id,
+                avatar
             )
             githubDao?.addToFav(github)
         }
     }
 
-    fun cekFav(id: Int) = githubDao?.checked(id)
+    suspend fun cekFav(id: Int) = githubDao?.checked(id)
     fun removeFav(id: Int){
         CoroutineScope(Dispatchers.IO).launch {
             githubDao?.removeFav(id)

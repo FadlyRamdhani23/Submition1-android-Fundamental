@@ -7,6 +7,7 @@ package org.d3if3127.submition1.ui.splashscreen
     import androidx.appcompat.app.AppCompatActivity
     import org.d3if3127.submition1.R
     import org.d3if3127.submition1.ui.MainActivity
+    import org.d3if3127.submition1.ui.favorite.FavoriteActivity
 
 class SplashScreenActivity : AppCompatActivity() {
 

@@ -9,4 +9,5 @@ data class GithubEntity(
     val login : String,
     @PrimaryKey
     val id : Int,
+    val avatar : String,
 ): Serializable
