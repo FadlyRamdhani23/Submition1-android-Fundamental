@@ -13,7 +13,6 @@ interface GithubDao {
 
     @Query("SELECT * FROM github")
     fun getFav(): LiveData<List<GithubEntity>>
-
     @Query("SELECT count(*) FROM github WHERE github.id = :id")
     suspend fun checked(id: Int): Int
 

@@ -7,26 +7,28 @@ import androidx.room.RoomDatabase
 import org.d3if3127.submition1.data.local.entity.GithubEntity
 
 
-@Database(entities = [GithubEntity::class], version = 1)
+@Database(entities = [GithubEntity::class], version = 1, exportSchema = false)
 abstract class GithubDatabase : RoomDatabase() {
 
     abstract fun githubDao(): GithubDao
 
-    companion object{
-        var INSTANCE: GithubDatabase? = null
+    companion object {
+        @Volatile
+        private var INSTANCE: GithubDatabase? = null
 
-        fun getDatabase(context: Context): GithubDatabase? {
-            if(INSTANCE == null){
-                synchronized(GithubDatabase::class){
-                    INSTANCE = Room.databaseBuilder(
-                        context.applicationContext,
-                        GithubDatabase::class.java,
-                        "github.db"
-                    ).build()
-                }
+        @JvmStatic
+        fun getDatabase(context: Context): GithubDatabase {
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
             }
-            return INSTANCE
         }
+
+        private fun buildDatabase(context: Context) =
+            Room.databaseBuilder(
+                context.applicationContext,
+                GithubDatabase::class.java,
+                "github.db"
+            ).build()
     }
 
 }

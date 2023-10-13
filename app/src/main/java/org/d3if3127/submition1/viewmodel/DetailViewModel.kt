@@ -62,11 +62,11 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
         })
     }
 
-    fun addFav(username: String, id:Int, avatar:String){
+    fun addFav(id:Int, username: String, avatar:String){
         CoroutineScope(Dispatchers.IO).launch {
             var github = GithubEntity(
-                username,
                 id,
+                username,
                 avatar
             )
             githubDao?.addToFav(github)

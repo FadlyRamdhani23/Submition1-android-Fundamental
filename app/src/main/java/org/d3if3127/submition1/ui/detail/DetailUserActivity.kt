@@ -86,7 +86,7 @@ class DetailUserActivity : AppCompatActivity() {
             binding.toggleButtonFav.isChecked = ceked
 
             if (ceked) {
-                detailViewModel.addFav(user.toString(), id,avatar.toString())
+                detailViewModel.addFav( id,user.toString(),avatar.toString())
             } else {
                 detailViewModel.removeFav(id)
             }
